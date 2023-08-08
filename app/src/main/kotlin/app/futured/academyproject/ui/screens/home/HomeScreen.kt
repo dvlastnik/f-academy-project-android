@@ -1,12 +1,15 @@
 package app.futured.academyproject.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +27,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.academyproject.R
 import app.futured.academyproject.data.model.local.Place
@@ -32,8 +36,10 @@ import app.futured.academyproject.tools.arch.EventsEffect
 import app.futured.academyproject.tools.arch.onEvent
 import app.futured.academyproject.tools.compose.ScreenPreviews
 import app.futured.academyproject.tools.preview.PlacesProvider
+import app.futured.academyproject.ui.components.PlaceItem
 import app.futured.academyproject.ui.components.Showcase
 import app.futured.academyproject.ui.theme.Grid
+import coil.compose.AsyncImage
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
@@ -44,7 +50,7 @@ fun HomeScreen(
     with(viewModel) {
         EventsEffect {
             onEvent<NavigateToDetailEvent> {
-                // TODO: COMPOSE NAVIGATION
+                navigation.navigateToDetailScreen(it.placeId)
             }
         }
 
@@ -85,7 +91,12 @@ object Home {
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
-                    // TODO: COMPOSE UI
+                    items(places) {
+                        Column {
+                            PlaceItem(place = it, onClick = {actions.navigateToDetailScreen(it.id)})
+                        }
+                        Divider(modifier = Modifier.padding(5.dp))
+                    }
                 }
             },
         )

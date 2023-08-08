@@ -23,10 +23,10 @@ sealed class Destination(
     object Home : Destination(route = "home")
 
     object Detail : Destination(
-        route = "detail",
+        route = "detail?{placeId}",
         arguments = emptyList(),
     ) {
-        fun buildRoute(): String = route
+        fun buildRoute(placeId: Int): String = route.withArgument("placeId", placeId.toString())
     }
 }
 

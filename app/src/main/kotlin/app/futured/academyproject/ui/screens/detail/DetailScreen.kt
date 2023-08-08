@@ -24,6 +24,7 @@ import app.futured.academyproject.ui.components.Showcase
 
 @Composable
 fun DetailScreen(
+    id: Int?,
     navigation: NavigationDestinations,
     viewModel: DetailViewModel = hiltViewModel(),
 ) {
@@ -33,7 +34,7 @@ fun DetailScreen(
                 navigation.popBackStack()
             }
         }
-
+        Text(text = id.toString())
         Detail.Content(
             this,
             viewState.place,

@@ -25,6 +25,10 @@ fun NavGraph(
             HomeScreen(navigation)
         }
 
-        // TODO: COMPOSE NAVIGATION
+        composable(Destination.Detail) {
+            val id = it.arguments?.getString("placeId")
+
+            DetailScreen(navigation = navigation, id = id?.toInt())
+        }
     }
 }
